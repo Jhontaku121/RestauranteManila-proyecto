@@ -1,0 +1,77 @@
+/* colores de backgrounds */
+.snackbar-exito {
+  background-color: #d32f2f; /* rojo fuerte */
+  color: #fff;              /* texto blanco */
+  font-weight: bold;
+  border-radius: 6px;
+}
+.bg1 {
+    background: rgb(255, 55, 55);
+}
+
+.bg2 {
+    background: rgb(248, 245, 245);
+}
+
+.bg3 {
+    background: rgb(88, 88, 88);
+}
+body {
+    background-image: url('/imgs/fondo.png');
+    background-repeat: repeat;
+    background-size: auto;
+    background-color: rgba(255, 255, 255, 0.4);
+    background-blend-mode: lighten;
+}
+
+/* Definición de tamaños de encabezados */
+h1 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 48px;
+}
+
+h2 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 42px;
+}
+
+h3 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 36px;
+}
+
+h4 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 34px;
+}
+
+h5 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+}
+
+h6 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+}
+
+small {
+    font-size: 14px;
+}
+
+strong,
+.bold {
+    font-weight: 700;
+}

@@ -1,0 +1,9 @@
+a{
+    transition: color 0.3s;
+    font-size: 20px;
+    color: black;
+}
+a:hover {
+  color: rgb(255, 55, 55);           /* color al pasar el mouse */
+  text-decoration: underline; /* opcional: subrayado al hover */
+}

@@ -1,0 +1,12 @@
+.sep{
+    height: auto;
+}
+img{
+    max-width: 500px;
+}
+.instro{
+  white-space: pre-line; /* respeta \n como salto de línea */
+}
+.proc{
+    border-radius: 30%;
+}

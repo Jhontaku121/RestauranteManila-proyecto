@@ -1,0 +1,18 @@
+section {
+  border-radius: 30%;
+}
+
+img {
+    border-radius: 40%;
+    max-width: 100%;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 900px) {
+    img {
+        max-height: 250px;
+    }
+}

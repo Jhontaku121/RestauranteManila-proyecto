@@ -1,0 +1,19 @@
+<h1 class="text-center bg3 text-white">Carrito</h1>
+<section class="container text-start bg2">
+    <h2>Comidas:</h2>
+    @for(item of comidas; track $index){
+        <div class="container d-flex mb-3 align-items-center">
+            <img src="{{item.foto}}">
+            <h3 class="me-4 ms-2">Nombre: {{item.nombre}}</h3>
+            <h3>Precio: {{item.precio}}</h3>
+        </div>
+    }
+    <h2>Bebidas:</h2>
+    @for(item of bebidas; track $index){
+        <div class="container d-flex mb-3 align-items-center">
+            <img src="{{item.foto}}">
+            <h3 class="me-4 ms-2">Nombre: {{item.nombre}}</h3>
+            <h3>Precio: {{item.precio}}</h3>
+        </div>
+    }
+</section>
