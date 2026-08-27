@@ -12,7 +12,9 @@ import { Ebebidas } from '../entidades/ebebidas';
 export class Carrito implements OnInit {
   constructor(private carritoservice: EnviarCarrito) { }
 
-  comidas: Ecomida[] = []
+  comidas: Ecomida[] = [];
+  infoc: any[] = [];
+  infob: any[] = [];
   bebidas: Ebebidas[] = [];
   orden: any[] = [];
 
@@ -27,8 +29,7 @@ export class Carrito implements OnInit {
         }
       }
       this.ordenarC();
-      console.log(this.comidas)
-      console.log(this.bebidas)
+      this.ordenarb();
     });
   }
   ordenarC() {
@@ -38,7 +39,7 @@ export class Carrito implements OnInit {
       // si ya existe en lista, incrementa cantidad
       const index = lista.findIndex(c => c.id === i.id);
 
-      if (index !== -1) {
+      if (index != -1) {
         lista[index].cant++;
       } else {
         const entidad = {
@@ -51,7 +52,30 @@ export class Carrito implements OnInit {
         lista.push(entidad);
       }
     }
+    this.infoc=lista;
     console.log("lista:")
-    console.log(lista);
+    console.log(this.infoc);
+  }
+  ordenarb() {
+    const lista: any[] = [];
+
+    for (const i of this.bebidas) {
+      const index = lista.findIndex(c => c.id === i.id);
+      if (index != -1) {
+        lista[index].cant++;
+      } else {
+        const entidad = {
+          id: i.id, 
+          nombre: i.nombre,
+          precio: i.precio,
+          foto: i.foto,
+          cant: 1
+        };
+        lista.push(entidad);
+      }
+    }
+    this.infob=lista;
+    console.log("lista bebidas:")
+    console.log(this.infoc);
   }
 }
