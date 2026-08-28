@@ -41,8 +41,30 @@
         }
         <h2>Total: <h2 class="text-center">${{total | number:'1.0-0'}}</h2>
         </h2>
+        <div class="d-flex row">
+            <div class="col-2">
+                <h4>Nombre:</h4>
+            </div>
+            <div class="col-4">
+                <input type="nombre" class="form-control" id="nombre" placeholder="Ingresa Nombre Completo" [(ngModel)]="persona.nombre" name="nombre">
+            </div>
+            <div class="col-2">
+                <h4>Direccion:</h4>
+            </div>
+            <div class="col-4">
+                <input type="direccion" class="form-control" id="nombre" placeholder="Ingresa Direccion" [(ngModel)]="persona.direccion" name="direccion">
+            </div>
+        </div>
         <div class="d-flex justify-content-center ">
-            <button (click)="generarPDF()">Generar PDF</button>
+            <div class="col-2">
+                <h4>Celular:</h4>
+            </div>
+            <div class="col-4">
+                <input type="celular" class="form-control" id="nombre" placeholder="Ingresa celular" [(ngModel)]="persona.cel" name="celular">
+            </div>
+        </div>
+        <div class="d-flex justify-content-center ">
+            <button (click)="comprobar()">Generar PDF</button>
         </div>
     </section>
 }

@@ -11,6 +11,7 @@ export class Bebidas {
     xingrediente="https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
     xcategoria="https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=";
     alcohol="https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=";
+    rando="https://www.thecocktaildb.com/api/json/v1/1/random.php";
 
     categorias(){
         return this.servicioApi.get(this.cat)
@@ -26,5 +27,8 @@ export class Bebidas {
     }
     alcoholica(filtro:String){
         return this.servicioApi.get(this.alcohol+filtro)
+    }
+    random(){
+        return this.servicioApi.get(this.rando);
     }
 }

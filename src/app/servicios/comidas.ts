@@ -9,6 +9,7 @@ export class Comidas {
     xnombre="https://www.themealdb.com/api/json/v1/1/search.php?s=";
     xingrediente="https://www.themealdb.com/api/json/v1/1/filter.php?i=";
     xid="https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+    rando="https://www.themealdb.com/api/json/v1/1/random.php";
 
     buscarxnombre(nombre : string): Observable<any>{
         return this.servicioApi.get(this.xnombre+nombre)
@@ -18,5 +19,8 @@ export class Comidas {
     }
     buscarPorId(id:string){
         return this.servicioApi.get(this.xingrediente+id)
+    }
+    random(){
+        return this.servicioApi.get(this.rando);
     }
 }

@@ -5,17 +5,19 @@ import { Ebebidas } from '../entidades/ebebidas';
 import { DecimalPipe } from '@angular/common';
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { FormsModule } from '@angular/forms';
+import { Persona } from '../entidades/persona';
 
 @Component({
   selector: 'app-carrito',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, FormsModule],
   templateUrl: './carrito.html',
   styleUrl: './carrito.css',
 })
 export class Carrito implements OnInit {
   constructor(private carritoservice: EnviarCarrito) { }
 
-  
+  persona: Persona = new Persona;
   comidas: Ecomida[] = [];
   infoc: any[] = [];
   infob: any[] = [];
@@ -101,6 +103,13 @@ export class Carrito implements OnInit {
     console.log("lista bebidas:")
     console.log(this.infob);
   }
+  comprobar(){
+    if(this.persona.cel!="" && this.persona.direccion!="" && this.persona.nombre!=""){
+      this.generarPDF();
+    }else{
+      alert("querido cliente llena los datos")
+    }
+  }
   generarPDF() {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
@@ -117,7 +126,7 @@ export class Carrito implements OnInit {
     // 2️⃣ Título centrado, pero más abajo para no chocar con el logo
     doc.setFontSize(18);
     doc.setFont("helvetica", "bold");
-    doc.text(title, (pageWidth - textWidth) / 2, 65);
+    doc.text(title, (pageWidth - textWidth) / 2, 55);
 
     // 3️⃣ Tabla debajo del título
     const body = this.listatotal.map(item => [
@@ -132,9 +141,19 @@ export class Carrito implements OnInit {
       { content: 'TOTAL', colSpan: 3, styles: { halign: 'left', fontStyle: 'bold' } },
       { content: '$'+total1.toLocaleString('es-CO'), styles: { halign: 'right', fontStyle: 'bold' } }
     ]);
-
     autoTable(doc, {
-      startY: 70,
+      startY: 60,
+      head: [['Nombre(cliente)','Direccion','Celular']],
+      body: [
+        [
+          this.persona.nombre,
+          this.persona.direccion,
+          this.persona.cel
+        ]
+      ]
+    });
+    autoTable(doc, {
+      startY: 75,
       head: [['Producto','xUni','Cant',{content:'Precio',styles:{halign:'right',fontStyle:'bold'}}]],
       body: body
     });
