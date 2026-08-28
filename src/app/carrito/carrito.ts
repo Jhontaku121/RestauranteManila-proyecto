@@ -155,12 +155,13 @@ export class Carrito implements OnInit {
     ]);
     autoTable(doc, {
       startY: 60,
-      head: [['Nombre(cliente)','Direccion','Celular']],
+      head: [['Nombre(cliente)','Direccion','Celular', 'fecha']],
       body: [
         [
           this.persona.nombre,
           this.persona.direccion,
-          this.persona.cel
+          this.persona.cel,
+          new Date().toLocaleDateString('es-CO')
         ]
       ]
     });
