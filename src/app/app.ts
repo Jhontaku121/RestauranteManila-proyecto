@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Encabezado } from './encabezado/encabezado';
 import { Estrellas } from './estrellas/estrellas';
@@ -12,7 +12,10 @@ import { InfoInicio } from './info-inicio/info-inicio';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit{
+  ngOnInit(): void {
+    document.documentElement.style.backgroundImage = "url('imgs/fondo.png')";
+  }
   protected readonly title = signal('Beta');
   private router = inject(Router);
   esRutaInicio = true
