@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-catcomida',
-  imports: [CommonModule, FormsModule,],
+  imports: [CommonModule, FormsModule],
   providers: [Comidas],
   templateUrl: './catcomida.html',
   styleUrl: './catcomida.css',
@@ -51,7 +51,7 @@ export class Catcomida implements OnInit {
         this.comida.id = i.idMeal;
         this.comida.nombre=i.strMeal;
         this.comida.foto=i.strMealThumb;
-        this.comida.precio = Number((Math.random() * 100000).toFixed(2));
+        this.comida.precio = Math.floor(Math.random() * 2000) * 50;
         this.comidas.push({...this.comida});
       }
       console.log(this.comidas);
@@ -67,7 +67,7 @@ export class Catcomida implements OnInit {
         this.comida.id= i.idMeal;
         this.comida.nombre=i.strMeal;
         this.comida.foto=i.strMealThumb;
-        this.comida.precio = Number((Math.random() * 100000).toFixed(2));
+        this.comida.precio = Math.floor(Math.random() * 2000) * 50;
         this.comidas.push({...this.comida});
       }
       console.log(this.comidas);

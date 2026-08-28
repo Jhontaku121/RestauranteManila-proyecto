@@ -50,7 +50,7 @@ export class Catbebidas implements OnInit {
         if (i.idDrink != null) {
           this.ebebida.id = i.idDrink;
           this.ebebida.nombre = i.strDrink;
-          this.ebebida.precio = Number((Math.random() * 100000).toFixed(2));
+          this.ebebida.precio = Math.floor(Math.random() * 2000) * 50;
           this.ebebida.foto = i.strDrinkThumb;
           this.ebebidas.push({ ...this.ebebida });
         }
@@ -68,7 +68,7 @@ export class Catbebidas implements OnInit {
         if (i.idDrink != null) {
           this.ebebida.id = i.idDrink;
           this.ebebida.nombre = i.strDrink;
-          this.ebebida.precio = Number((Math.random() * 100000).toFixed(2));
+          this.ebebida.precio = Math.floor(Math.random() * 2000) * 50;
           this.ebebida.foto = i.strDrinkThumb;
           this.ebebidas.push({ ...this.ebebida });
         }
@@ -92,7 +92,7 @@ export class Catbebidas implements OnInit {
         if (i.idDrink != null) {
           this.ebebida.id = i.idDrink;
           this.ebebida.nombre = i.strDrink;
-          this.ebebida.precio = Number((Math.random() * 100000).toFixed(2));
+          this.ebebida.precio = Math.floor(Math.random() * 2000) * 50;
           this.ebebida.foto = i.strDrinkThumb;
           this.ebebidas.push({ ...this.ebebida });
         }
@@ -110,7 +110,7 @@ export class Catbebidas implements OnInit {
         if (i.idDrink != null) {
           this.ebebida.id = i.idDrink;
           this.ebebida.nombre = i.strDrink;
-          this.ebebida.precio = Number((Math.random() * 100000).toFixed(2));
+          this.ebebida.precio = Math.floor(Math.random() * 2000) * 50;
           this.ebebida.foto = i.strDrinkThumb;
           this.ebebidas.push({ ...this.ebebida });
         }

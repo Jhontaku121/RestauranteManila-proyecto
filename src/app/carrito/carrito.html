@@ -1,37 +1,53 @@
 <h1 class="text-center bg3 text-white">Carrito</h1>
-<section class="container text-start bg2">
-    <h2>Comidas:</h2>
-    @for(item of infoc; track $index){
-    <div class="d-flex mb-3 align-items-center justify-content-center text-center">
-        <div class="col-ms-2">
-            <img src="{{item.foto}}">
+@if(infoc.length>=1 || infob.length>=1){
+    <section class="container text-start bg2">
+        @if (infoc.length>=1){
+            <h2>Comidas:</h2>
+            @for(item of infoc; track $index){
+            <div class="d-flex mb-3 align-items-center justify-content-center text-center">
+                <div class="col-2">
+                    <img src="{{item.foto}}">
+                </div>
+                <div class="col-5">
+                    <h3 class="me-4 ms-2">Nombre: {{item.nombre}}</h3>
+                </div>
+                <div class="col-2">
+                    <h3 class="me-4 ms-2">Precio: {{item.precio | number:'1.0-0'}}</h3>
+                </div>
+                <div class="col-2">
+                    <h3>catidad: {{item.cant}}</h3>
+                </div>
+            </div>
+            }
+        }
+        @if (infob.length>=1){
+            <h2>Bebidas:</h2>
+            @for(item of infob; track $index){
+            <div class="d-flex mb-3 align-items-center justify-content-center text-center">
+                <div class="col-2">
+                    <img src="{{item.foto}}">
+                </div>
+                <div class="col-5">
+                    <h3 class="me-4 ms-2">Nombre: {{item.nombre}}</h3>
+                </div>
+                <div class="col-2">
+                    <h3 class="me-4 ms-2">Precio: ${{item.precio | number:'1.0-0'}}</h3>
+                </div>
+                <div class="col-2">
+                    <h3>catidad: {{item.cant}}</h3>
+                </div>
+            </div>
+            }
+        }
+        <h2>Total: <h2 class="text-center">${{total | number:'1.0-0'}}</h2>
+        </h2>
+        <div class="d-flex justify-content-center ">
+            <button (click)="generarPDF()">Generar PDF</button>
         </div>
-        <div class="col-ms-2">
-            <h3 class="me-4 ms-2">Nombre: {{item.nombre}}</h3>
-        </div>
-        <div class="col-ms-2">
-            <h3 class="me-4 ms-2">Precio: {{item.precio}}</h3>
-        </div>
-        <div class="col-ms-2">
-            <h3>catidad: {{item.cant}}</h3>
-        </div>
-    </div>
-    }
-    <h2>Bebidas:</h2>
-    @for(item of infob; track $index){
-    <div class="d-flex mb-3 align-items-center justify-content-center text-center">
-        <div class="col-ms-2">
-            <img src="{{item.foto}}">
-        </div>
-        <div class="col-ms-2">
-            <h3 class="me-4 ms-2">Nombre: {{item.nombre}}</h3>
-        </div>
-        <div class="col-ms-2">
-            <h3 class="me-4 ms-2">Precio: {{item.precio}}</h3>
-        </div>
-        <div class="col-ms-2">
-            <h3>catidad: {{item.cant}}</h3>
-        </div>
-    </div>
-    }
-</section>
+    </section>
+}
+@if(infoc.length==0 && infob.length==0){
+    <section class="d-flex align-items-center justify-content-center text-center bg3">
+        <h2>Sin elementos agregados al carrito</h2>
+    </section>
+}
