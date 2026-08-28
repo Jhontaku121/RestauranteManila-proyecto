@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { EnviarCarrito } from '../servicios/enviar-carrito';
 import { Ecomida } from '../entidades/ecomida';
 import { Ebebidas } from '../entidades/ebebidas';
@@ -15,7 +15,10 @@ import { Persona } from '../entidades/persona';
   styleUrl: './carrito.css',
 })
 export class Carrito implements OnInit {
-  constructor(private carritoservice: EnviarCarrito) { }
+  constructor(private carritoservice: EnviarCarrito,
+    private carri: EnviarCarrito,
+    private cd:ChangeDetectorRef
+  ) { }
 
   persona: Persona = new Persona;
   comidas: Ecomida[] = [];
@@ -28,6 +31,10 @@ export class Carrito implements OnInit {
   logoBase64: string | null = null;
 
   ngOnInit() {
+    this.comidas = [];
+    this.bebidas = [];
+    this.listatotal = [];
+    this.total = 0;
     this.carritoservice.carrito$.subscribe((lista: any) => {
       console.log('Carrito actualizado:', lista);
       for (var i of lista) {
@@ -40,6 +47,7 @@ export class Carrito implements OnInit {
       this.ordenarC();
       this.ordenarb();
       this.calcular();
+      this.cd.detectChanges();
     });
   }
   calcular() {
@@ -79,6 +87,10 @@ export class Carrito implements OnInit {
     this.infoc = lista;
     console.log("lista comidas:")
     console.log(this.infoc);
+  }
+  borrar(item:any){
+    this.carri.eliminarPorId(item.id);
+    this.ngOnInit();
   }
   ordenarb() {
     const lista: any[] = [];

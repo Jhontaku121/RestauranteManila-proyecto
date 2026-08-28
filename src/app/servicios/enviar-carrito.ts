@@ -13,4 +13,9 @@ export class EnviarCarrito {
         const nuevoCarrito = [...carritoActual, producto]; // agrega el nuevo producto
         this.carritoSubject.next(nuevoCarrito); // emite la lista actualizada
     }
+    eliminarPorId(id: string) {
+        const carritoActual = this.carritoSubject.value;
+        const nuevoCarrito = carritoActual.filter(p => p.id !== id);
+        this.carritoSubject.next(nuevoCarrito);
+    }
 }

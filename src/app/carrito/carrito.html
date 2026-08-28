@@ -8,7 +8,7 @@
                 <div class="col-2">
                     <img src="{{item.foto}}">
                 </div>
-                <div class="col-5">
+                <div class="col-4">
                     <h3 class="me-4 ms-2">Nombre: {{item.nombre}}</h3>
                 </div>
                 <div class="col-2">
@@ -16,6 +16,9 @@
                 </div>
                 <div class="col-2">
                     <h3>catidad: {{item.cant}}</h3>
+                </div>
+                <div class="d-flex col-1">
+                    <button (click)="borrar(item)" class="bg1 text-white">Borrar</button>
                 </div>
             </div>
             }

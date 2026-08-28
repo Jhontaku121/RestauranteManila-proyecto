@@ -6,30 +6,16 @@
             </h2>
         </div>
         <div class="card-body bg2">
-            <img class="img1" src="https://cdn.pixabay.com/photo/2020/06/20/17/44/food-5321841_1280.jpg">
+            <img class="img1" src="{{comida.foto}}">
             <h4>
-                Bandeja Paisa
+                {{comida.nombre}}
             </h4>
-            <p>
-                Es un plato nutritivo<br>
-                y balanceado, que mezcla<br>
-                proteínas, carbohidratos<br>
-                y grasas saludables. El<br>
-                contraste entre la carne<br>
-                jugosa, los frijoles<br>
-                suaves, el arroz esponjoso<br>
-                y el aguacate fresco lo<br>
-                convierte en una comida<br>
-                completa y muy satisfactoria.
-            </p>
         </div> 
         <div class="card-footer foot bg3">
             <p class="text-start">Ingredientes:</p>
-            <p>
-                Arroz blanco, frijoles,<br>
-                carne, aguacate, cebolla,<br>
-                cilantro, tomate, chicharron
-            </p>
+            @for (ing of getIngredientesc(apicomi); track $index) {
+                <span class="badge bg-secondary">{{ ing }}</span>
+            }
         </div>
     </div>
     <div class="card border-3">
@@ -39,34 +25,16 @@
             </h2>
         </div>
         <div class="card-body bg2">
-            <img class="img2" src="https://cdn.pixabay.com/photo/2022/01/19/18/15/juice-6950672_1280.jpg">
+            <img class="img2" src="{{bebida.foto}}">
             <h4>
-                Derby con Bourbon
+                {{bebida.nombre}}
             </h4>
-            <p>
-                El Derby con Bourbon<br>
-                es un cóctel sofisticado<br>
-                pero accesible, perfecto<br>
-                para quienes buscan un<br>
-                trago refrescante con<br>
-                carácter. Su equilibrio<br>
-                entre dulzor, acidez y<br>
-                frescura lo convierte en<br>
-                una opción versátil:<br>
-                tanto para un aficionado<br>
-                que empieza en la coctelería<br>
-                como para un paladar<br>
-                experimentado que aprecia<br>
-                la elegancia de un clásico<br>
-                bien ejecutado.
-            </p>
         </div> 
         <div class="card-footer foot bg3">
             <p class="text-start">Ingredientes:</p>
-            <p>
-                bourbon, limon, agua,<br>
-                azucar, menta fresca
-            </p>
+            @for (ing of getIngredientesb(apibebi); track $index) {
+                <span class="badge bg-secondary">{{ ing }}</span>
+            }
         </div>
     </div>
 </div>
