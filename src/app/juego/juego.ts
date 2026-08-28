@@ -12,8 +12,8 @@ import { Bebidas } from '../servicios/bebidas';
 export class Juego implements OnInit{
   constructor(private cd: ChangeDetectorRef, private apicomidas: Comidas, private apibebidas: Bebidas){}
   imageR:string = "https://assets.pokemon.com/static-assets/content-assets/cms2-es-xl/img/cards/web/SWSH11/SWSH11_LA_97.png";
-  ganador1:string = "imgs/LogoSF.png";
-  ganador2:string = "imgs/LogoSF.png";
+  ganador1:string = "";
+  ganador2:string = "";
   perder:string = "https://assets.pokemon.com/static-assets/content-assets/cms2-es-xl/img/cards/web/ME05/ME05_LA_116.png";
   posicion11:number[]=[0,0];
   posicion22:number[]=[0,0];
