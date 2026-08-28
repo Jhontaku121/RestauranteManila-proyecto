@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Ecomida } from '../entidades/ecomida';
 import { EnviarCarrito } from '../servicios/enviar-carrito';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-catcomida',
@@ -16,20 +17,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class Catcomida implements OnInit {
 
   ngOnInit(): void {
-    this.buscarxnombre();
+    this.xcategorias();
   }
   recarga() {
     setTimeout(() => {
       this.cd.detectChanges();
     }, 250);
   }
-  constructor(private servicioApi: Comidas, private cd: ChangeDetectorRef, 
+  constructor(private servicioApi: Comidas, private cd: ChangeDetectorRef,
     private carrito: EnviarCarrito, private snackBar: MatSnackBar) { }
 
   filtro: string = "Nombre";
   api: any[] = [];
   comida: Ecomida = new Ecomida;
-  comidas:Ecomida[] = [];
+  comidas: Ecomida[] = [];
   mensaje: string = "";
   titulo: string = "";
   selectedItem: any = null;
@@ -43,16 +44,44 @@ export class Catcomida implements OnInit {
       this.buscarxingrediente();
     }
   }
+  xcategorias() {
+  this.comidas = [];
+
+  this.servicioApi.buscarCategorias().subscribe((res: any) => {
+    this.comidas = [];
+    const listaCategorias = res.categories.map((c: any) => c.strCategory);
+
+    // construimos un array de observables
+    const observables = listaCategorias.map((cat: string) =>
+      this.servicioApi.buscarPorCategoria(cat)
+    );
+
+    forkJoin(observables).subscribe((resultados: any) => {
+      resultados.forEach((data: any) => {
+        for (const i of data.meals) {
+          this.comida = new Ecomida(); 
+          this.comida.id = i.idMeal;
+          this.comida.nombre = i.strMeal;
+          this.comida.foto = i.strMealThumb;
+          this.comida.precio = Math.floor(Math.random() * 2000) * 50;
+          this.comidas.push({...this.comida});
+        }
+      });
+
+      this.recarga();
+    });
+  });
+}
   buscarxnombre() {
     this.servicioApi.buscarxnombre(this.mensaje).subscribe(dato => {
       this.api = dato.meals;
-      this.comidas=[];
-      for(var i of dato.meals){
+      this.comidas = [];
+      for (var i of dato.meals) {
         this.comida.id = i.idMeal;
-        this.comida.nombre=i.strMeal;
-        this.comida.foto=i.strMealThumb;
+        this.comida.nombre = i.strMeal;
+        this.comida.foto = i.strMealThumb;
         this.comida.precio = Math.floor(Math.random() * 2000) * 50;
-        this.comidas.push({...this.comida});
+        this.comidas.push({ ...this.comida });
       }
       console.log(this.comidas);
       console.log(dato.meals)
@@ -62,13 +91,13 @@ export class Catcomida implements OnInit {
   buscarxingrediente() {
     this.servicioApi.buscarxingrediente(this.mensaje).subscribe((dato: any) => {
       this.api = dato.meals;
-      this.comidas=[];
-      for(var i of dato.meals){
-        this.comida.id= i.idMeal;
-        this.comida.nombre=i.strMeal;
-        this.comida.foto=i.strMealThumb;
+      this.comidas = [];
+      for (var i of dato.meals) {
+        this.comida.id = i.idMeal;
+        this.comida.nombre = i.strMeal;
+        this.comida.foto = i.strMealThumb;
         this.comida.precio = Math.floor(Math.random() * 2000) * 50;
-        this.comidas.push({...this.comida});
+        this.comidas.push({ ...this.comida });
       }
       console.log(this.comidas);
       this.recarga();
@@ -80,8 +109,13 @@ export class Catcomida implements OnInit {
       this.recarga();
     })
   }
-  addcarro(valor: any) {
-    this.carrito.agregarProducto(valor);
+  addcarro(valor: any, nd: string) {
+    var element = document.getElementById(nd) as HTMLInputElement;
+    let valorActual = parseInt(element.value, 10);
+    for(var i=0; i<valorActual; i++){
+      this.carrito.agregarProducto(valor);
+    }
+    element.value = "1";
     this.snackBar.open('🛒 Producto agregado al carrito', 'Cerrar', {
       duration: 4000, // se oculta en 2 segundos
       horizontalPosition: 'right',
@@ -111,12 +145,28 @@ export class Catcomida implements OnInit {
 
         modalElement.addEventListener('hidden.bs.modal', () => {
           // mueve el foco a un elemento visible fuera del modal
-          const destino = document.getElementById("btn-"+this.titulo);
+          const destino = document.getElementById("btn-" + this.titulo);
           destino?.setAttribute('tabindex', '0');
           destino?.focus();
         });
         modal.show();
       }
     }, 250);
+  }
+
+  incrementar(nd: string) {
+    var element = document.getElementById(nd) as HTMLInputElement;
+    let valorActual = parseInt(element.value, 10);
+    valorActual++;
+    element.value = valorActual.toString();
+  }
+
+  decrementar(nd: string) {
+    var element = document.getElementById(nd) as HTMLInputElement;
+    let valorActual = parseInt(element.value, 10);
+    if (valorActual > 1) { // evita que baje de 1
+      valorActual--;
+      element.value = valorActual.toString();
+    }
   }
 }

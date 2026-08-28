@@ -5,6 +5,7 @@ import { Bebidas } from '../servicios/bebidas';
 import { Ebebidas } from '../entidades/ebebidas';
 import { EnviarCarrito } from '../servicios/enviar-carrito';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-catbebidas',
@@ -16,9 +17,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class Catbebidas implements OnInit {
   ngOnInit(): void {
     this.categorias();
-    this.recargainicial();
+    this.xcategoriasBebidas();
   }
-  constructor(private servicioApi: Bebidas, private cd: ChangeDetectorRef, 
+  constructor(private servicioApi: Bebidas, private cd: ChangeDetectorRef,
     private carrito: EnviarCarrito, private snackBar: MatSnackBar) { }
 
   titulo: string = "";
@@ -102,6 +103,33 @@ export class Catbebidas implements OnInit {
     })
     this.recargainicial();
   }
+  xcategoriasBebidas() {
+    this.ebebidas = [];
+
+    this.servicioApi.categorias().subscribe((res: any) => {
+      const listaCategorias = res.drinks.map((c: any) => c.strCategory);
+
+      // construimos un array de observables
+      const observables = listaCategorias.map((cat: string) =>
+        this.servicioApi.buscarxcategoria(cat)
+      );
+
+      forkJoin(observables).subscribe((resultados: any) => {
+        resultados.forEach((data: any) => {
+          for (const i of data.drinks) {
+            this.ebebida = new Ebebidas; // 👈 crea nueva entidad cada vez
+            this.ebebida.id = i.idDrink;
+            this.ebebida.nombre = i.strDrink;
+            this.ebebida.foto = i.strDrinkThumb;
+            this.ebebida.precio = Math.floor(Math.random() * 2000) * 50;
+            this.ebebidas.push({...this.ebebida});
+          }
+        });
+
+        this.recargainicial();
+      });
+    });
+  }
   filtrocategorias() {
     this.servicioApi.buscarxcategoria(this.filtro2).subscribe((dato: any) => {
       this.api = dato.drinks;
@@ -115,9 +143,9 @@ export class Catbebidas implements OnInit {
           this.ebebidas.push({ ...this.ebebida });
         }
       }
+      this.recargainicial();
       console.log(this.ebebidas);
       console.log(this.api);
-      this.recargainicial();
     })
   }
   detalles(item: any) {
@@ -141,8 +169,13 @@ export class Catbebidas implements OnInit {
       console.log(this.categoria);
     })
   }
-  addcarro(valor: any) {
-    this.carrito.agregarProducto(valor);
+  addcarro(valor: any, nd: string) {
+    var element = document.getElementById(nd) as HTMLInputElement;
+    let valorActual = parseInt(element.value, 10);
+    for (var i = 0; i < valorActual; i++) {
+      this.carrito.agregarProducto(valor);
+    }
+    element.value = "1";
     this.snackBar.open('🛒 Producto agregado al carrito', 'Cerrar', {
       duration: 4000, // se oculta en 2 segundos
       horizontalPosition: 'right',
@@ -179,5 +212,20 @@ export class Catbebidas implements OnInit {
         modal.show();
       }
     }, 250);
+  }
+  incrementar(nd: string) {
+    var element = document.getElementById(nd) as HTMLInputElement;
+    let valorActual = parseInt(element.value, 10);
+    valorActual++;
+    element.value = valorActual.toString();
+  }
+
+  decrementar(nd: string) {
+    var element = document.getElementById(nd) as HTMLInputElement;
+    let valorActual = parseInt(element.value, 10);
+    if (valorActual > 1) { // evita que baje de 1
+      valorActual--;
+      element.value = valorActual.toString();
+    }
   }
 }

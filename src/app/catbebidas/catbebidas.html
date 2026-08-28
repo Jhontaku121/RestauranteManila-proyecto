@@ -50,9 +50,14 @@
                 <h3 class="card-title text-center">{{ item.nombre }}</h3>
                 <h4 class="text-center">$ {{item.precio | number:'1.0-0'}}</h4>
             </div>
+            <div class="container mt-4 d-flex justify-content-center align-items-center gap-2">
+                <button class="btn btn-danger" (click)="decrementar(item.id)">-</button>
+                <input type="number" [value]="1" readonly class="form-control text-center" style="width:80px;" disabled id="{{item.id}}">
+                <button class="btn btn-success" (click)="incrementar(item.id)">+</button>
+            </div>
             <div class="d-flex align-items-end justify-content-evenly mb-3">
                 <a (click)="detalles(item)" class=" btn btn-secondary bg1 mt-3 align-items-end">Detalles</a>
-                <a (click)="addcarro(item)" class=" btn bg3 btn-dark mt-3 align-items-end">➕🛒</a>
+                <a (click)="addcarro(item, item.id)" class=" btn bg3 btn-dark mt-3 align-items-end">➕🛒</a>
             </div>
         </div>
         }
